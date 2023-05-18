@@ -1,0 +1,52 @@
+@import "../../../variables";
+
+::ng-deep .app-nav-bar {
+    .nav-bar-links {
+        a {
+            color: $color-white;
+            font-size: 14px;
+            text-decoration: none;
+            padding: 5px;
+        }
+        a:hover, a:focus {
+            text-decoration: underline;
+        }
+    }
+    .nav-bar-spacer {
+        flex: 1 1 auto;
+    }
+    .btn-phantom {
+        cursor: pointer;
+        background-color: $color-phantom;
+        border: 1px solid $color-phantom;
+        border-radius: 5px;
+        box-shadow: 0 3px 6px #00000029;
+
+        img {
+            display: block;
+            width: 85%;
+            margin: auto;
+        }
+    }
+    .wallet-address {
+        font-size: 14px;
+    }
+    .btn-disconnect {
+        color: $color-white;
+        margin-left: 10px;
+    }
+    .active {
+        text-decoration: underline !important;
+    }
+    .logo-mobile {
+        display: none;
+    }
+    @media (max-width: 512px) {
+        .logo-desktop {
+            display: none;
+        }
+        .logo-mobile {
+            display: block;
+        }
+    }
+}
