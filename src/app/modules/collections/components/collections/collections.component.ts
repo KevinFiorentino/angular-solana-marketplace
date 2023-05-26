@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { SolanaNftService } from '@shared/services/solana-contracts/solana-nft.service';
 import { NewCollectionComponent } from '@shared/components/new-collection/new-collection.component';
 
 @Component({
@@ -9,19 +10,32 @@ import { NewCollectionComponent } from '@shared/components/new-collection/new-co
 })
 export class CollectionsComponent implements OnInit {
 
+  public collections!: any[];
+
   constructor(
     private dialog: MatDialog,
+    private solanaNftService: SolanaNftService,
   ) { }
 
   ngOnInit(): void {
+    this.getAllCollections();
+  }
+
+  getAllCollections(): void {
+
+  }
+
+  newCollectionCallback(): void {
+
   }
 
   newCollection(): void {
     this.dialog.open(NewCollectionComponent, {
       data: {
-        callback: {}
+        callback: this.newCollectionCallback.bind(this)
       }
     });
   }
+
 
 }

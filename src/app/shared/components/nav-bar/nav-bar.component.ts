@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PhantomConnectService } from '@shared/services/phantom/phantom-connect.service';
 import { PhantomDeeplinkService } from '@shared/services/phantom/phantom-deeplink.service';
 import { UtilsService } from '@shared/services/utils.service';
@@ -20,6 +20,10 @@ export class NavBarComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.listenPhantomWallet();
+  }
+
+  listenPhantomWallet(): void {
     this.phantom.listenPublicKey
       .subscribe(pk => {
         this.walletAddress = pk ? pk.toString() : '';
