@@ -1,21 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MyNftsRoutingModule } from './my-nfts-routing.module';
+import { NftRoutingModule } from './nft-routing.module';
 
 import { MaterialModule } from '@material/material.module';
 import { SharedModule } from '@shared/shared.module';
 
-import { MyNftsComponent } from './components/my-nfts/my-nfts.component';
+import { NftComponent } from './components/nft/nft.component';
 
 @NgModule({
   declarations: [
-    MyNftsComponent
+    NftComponent
   ],
   imports: [
     CommonModule,
-    MyNftsRoutingModule,
+    NftRoutingModule,
     MaterialModule,
-    SharedModule,
+    SharedModule
   ]
 })
-export class MyNftsModule { }
+export class NftModule { }

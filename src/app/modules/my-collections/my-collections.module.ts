@@ -1,21 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CollectionsRoutingModule } from './collections-routing.module';
+import { MyCollectionsRoutingModule } from './my-collections-routing.module';
 
 import { MaterialModule } from '@material/material.module';
 import { SharedModule } from '@shared/shared.module';
 
-import { CollectionsComponent } from './components/collections/collections.component';
+import { MyCollectionsComponent } from './components/my-collections/my-collections.component';
 
 @NgModule({
   declarations: [
-    CollectionsComponent,
+    MyCollectionsComponent
   ],
   imports: [
     CommonModule,
-    CollectionsRoutingModule,
+    MyCollectionsRoutingModule,
     MaterialModule,
     SharedModule,
   ]
 })
-export class CollectionsModule { }
+export class MyCollectionsModule { }

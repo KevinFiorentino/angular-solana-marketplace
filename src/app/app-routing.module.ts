@@ -3,12 +3,20 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
+    path: 'collection',
+    loadChildren: () => import('./modules/collection/collection.module').then(m => m.CollectionModule),
+  },
+  {
     path: 'collections',
     loadChildren: () => import('./modules/collections/collections.module').then(m => m.CollectionsModule),
   },
   {
-    path: 'my-nfts',
-    loadChildren: () => import('./modules/my-nfts/my-nfts.module').then(m => m.MyNftsModule),
+    path: 'my-collections',
+    loadChildren: () => import('./modules/my-collections/my-collections.module').then(m => m.MyCollectionsModule),
+  },
+  {
+    path: 'nft',
+    loadChildren: () => import('./modules/nft/nft.module').then(m => m.NftModule),
   },
   {
     path: '',

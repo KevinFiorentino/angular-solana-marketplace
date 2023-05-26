@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { NewCollectionComponent } from '@shared/components/new-collection/new-collection.component';
 
 @Component({
   selector: 'app-collections',
@@ -7,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CollectionsComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private dialog: MatDialog,
+  ) { }
 
   ngOnInit(): void {
+  }
+
+  newCollection(): void {
+    this.dialog.open(NewCollectionComponent, {
+      data: {
+        callback: {}
+      }
+    });
   }
 
 }
