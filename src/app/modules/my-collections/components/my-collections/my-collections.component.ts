@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { PhantomConnectService } from '@shared/services/phantom/phantom-connect.service';
 import { SolanaNftService } from '@shared/services/solana-contracts/solana-nft.service';
-import { NewCollectionComponent } from '@shared/components/new-collection/new-collection.component';
+import { NewCollectionComponent } from '@shared/components/@modals/new-collection/new-collection.component';
 import { Subscription } from 'rxjs';
 
 @Component({

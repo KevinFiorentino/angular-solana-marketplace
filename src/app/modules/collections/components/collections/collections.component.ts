@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { SolanaNftService } from '@shared/services/solana-contracts/solana-nft.service';
-import { NewCollectionComponent } from '@shared/components/new-collection/new-collection.component';
+import { NewCollectionComponent } from '@shared/components/@modals/new-collection/new-collection.component';
 
 @Component({
   selector: 'app-collections',
