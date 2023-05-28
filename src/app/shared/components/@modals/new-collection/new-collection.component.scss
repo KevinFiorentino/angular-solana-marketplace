@@ -1,5 +1,10 @@
 @import "../../../../variables";
 
 ::ng-deep .app-new-collection {
+    width: 400px !important;
 
+    form {
+        display: flex;
+        flex-direction: column;
+    }
 }

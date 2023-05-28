@@ -1,5 +1,39 @@
 <div class="app-add-nft-to-collection">
     <form [formGroup]="form">
 
+        <h1>
+            Add NFT to Collection
+        </h1>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Collection name</mat-label>
+            <input type="text" matInput formControlName="name">
+            <mat-error>Field required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Description</mat-label>
+            <textarea matInput formControlName="description" rows="4"></textarea>
+            <mat-error>Field required</mat-error>
+        </mat-form-field>
+
+        <br>
+
+        <div>
+            <div (click)="fileInput.click()" class="file-box">
+                Collection cover image <small *ngIf="originalName">{{ ': ' + originalName }}</small>
+            </div>
+            <input id="file" hidden #fileInput (change)="onFileSelected()" type="file">
+            <small *ngIf="errorImage">
+                <mat-error>Field required</mat-error>
+            </small>
+        </div>
+
+        <br>
+
+        <button (click)="addNFT()" class="btn-action" mat-button>
+            Mint NFT
+        </button>
+
     </form>
 </div>
