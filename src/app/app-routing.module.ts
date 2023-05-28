@@ -19,10 +19,6 @@ const routes: Routes = [
     loadChildren: () => import('./modules/nft/nft.module').then(m => m.NftModule),
   },
   {
-    path: '',
-    loadChildren: () => import('./modules/collections/collections.module').then(m => m.CollectionsModule),
-  },
-  {
     path: '**',
     redirectTo: 'collections'
   },

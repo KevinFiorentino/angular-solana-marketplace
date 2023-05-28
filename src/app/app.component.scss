@@ -15,15 +15,16 @@
             width: 90%;
         }
     }
-    .btn-action {
-        color: $color-white;
-        background-color: $color-phantom;
-        border: 2px solid $color-phantom;
-        border-radius: 5px;
-        box-shadow: 0 3px 6px #00000029;
-        margin-top: 10px;
-        height: 48px;
-    }
+}
+
+::ng-deep .btn-action {
+    color: $color-white;
+    background-color: $color-phantom;
+    border: 2px solid $color-phantom;
+    border-radius: 5px;
+    box-shadow: 0 3px 6px #00000029;
+    margin-top: 10px;
+    height: 36px;
 }
 
 // Alerts
