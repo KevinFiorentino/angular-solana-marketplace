@@ -26,6 +26,8 @@
     "@solana/web3.js": "^1.66.2",
     "bs58": "^5.0.0",
     "date-fns": "^2.29.3",
+    "ipfs-core": "^0.18.1",
+    "ipfs-http-client": "^60.0.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.3.0",
     "tweetnacl": "^1.0.3",
