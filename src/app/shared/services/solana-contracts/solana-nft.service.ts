@@ -6,6 +6,7 @@ import { PhantomConnectService } from '@shared/services/phantom/phantom-connect.
 import { IDL, SolanaNft } from '@shared/idls/solana-nft.idl';
 import { MintCollection } from '@shared/models/collection.interface';
 import { MintNFT } from '@shared/models/nft.interface';
+import { ExternalUrl, TokenType, TokenMetadataStandard } from '@shared/models/metadata.interface';
 
 const TOKEN_METADATA_PROGRAM_ID = new PublicKey(
   'metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s'
@@ -168,6 +169,33 @@ export class SolanaNftService {
     return this.phantom.signAndSendTransactionWeb(t, nftKP);
   }
 
+
+  /* ******************************
+         METADATA FUNCTIONS
+  ****************************** */
+
+  buildMetadataJSON(
+    name: string,
+    symbol: string,
+    description: string,
+    imageURI: string,
+    website: ExternalUrl = 'https://queenbe.io',
+    type: TokenType,
+    ipfsImageHash: string,
+    data = {},
+  ): TokenMetadataStandard {
+    return {
+      name: name,
+      symbol: symbol,
+      description: description,
+      image: imageURI,
+      external_url: website,
+      project: 'queenbe',
+      type: type,
+      ipfsImageHash: ipfsImageHash,
+      data: data,
+    };
+  }
 
 
   /* ******************************

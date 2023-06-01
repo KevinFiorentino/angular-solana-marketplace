@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { create, IPFSHTTPClient } from 'ipfs-http-client';
+import { TokenMetadataStandard } from '@shared/models/metadata.interface';
 import { environment } from '@environments/environment';
 
 @Injectable({
@@ -29,7 +30,7 @@ export class IpfsService {
     return this.ipfsClient.add(dataBuffer);
   }
 
-  addJsonFile(objectContent: Object) {
+  addJsonFile(objectContent: TokenMetadataStandard) {
     return this.ipfsClient.add(JSON.stringify(objectContent));
   }
 

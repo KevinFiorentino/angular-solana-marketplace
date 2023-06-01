@@ -22,7 +22,10 @@ export class CollectionsComponent implements OnInit {
   }
 
   getAllCollections(): void {
-
+    this.solanaNftService.getAllCollections()
+      .then(response => {
+        this.collections = response;
+      });
   }
 
   newCollectionCallback(): void {
