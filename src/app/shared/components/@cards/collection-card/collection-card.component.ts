@@ -9,9 +9,13 @@ export class CollectionCardComponent implements OnInit {
 
   @Input() collection!: any;
 
+  public tokenMint!: string;
+
   constructor() { }
 
   ngOnInit(): void {
+    console.log('collection', this.collection);
+    this.tokenMint = this.collection.publicKey.toString();
   }
 
 }

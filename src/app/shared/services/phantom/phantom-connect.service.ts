@@ -23,7 +23,11 @@ export class PhantomConnectService {
 
   constructor(
     private ngZone: NgZone,
-  ) {}
+  ) {
+    setTimeout(async () => {
+      this.setAnchorProvider();
+    }, 0);
+  }
 
 
   /* ********** WALLET CONEXION ********** */
@@ -64,10 +68,15 @@ export class PhantomConnectService {
   /* ********** NETWORK CONEXION ********** */
 
   setAnchorProvider(): void {
-    const opts: ConfirmOptions = { preflightCommitment: this.comm };
+    const opts: ConfirmOptions = {
+      preflightCommitment: this.comm,
+    };
+    // If window.solana doesn't exist (Phantom not installed), we mock the provider
+    const wallet = (window as any).solana ||
+      { publicKey: new PublicKey(new Keypair().publicKey), signTransaction: () => Promise.reject(), signAllTransactions: () => Promise.reject() };
     const provider = new AnchorProvider(
       this.connection,
-      (window as any).solana,
+      wallet,
       opts
     );
     setProvider(provider);

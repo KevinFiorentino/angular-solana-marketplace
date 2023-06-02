@@ -10,6 +10,7 @@ import { NewCollectionComponent } from '@shared/components/@modals/new-collectio
 })
 export class CollectionsComponent implements OnInit {
 
+  public loading = true;
   public collections!: any[];
 
   constructor(
@@ -23,8 +24,10 @@ export class CollectionsComponent implements OnInit {
 
   getAllCollections(): void {
     this.solanaNftService.getAllCollections()
-      .then(response => {
-        this.collections = response;
+      .then(res => {
+        this.collections = res;
+        this.loading = false;
+        console.log('this.collections', this.collections);
       });
   }
 

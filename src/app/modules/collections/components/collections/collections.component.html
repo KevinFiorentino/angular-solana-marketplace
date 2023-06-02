@@ -5,14 +5,15 @@
 
 <div class="app-collections">
 
-    <!-- <div class="collection-wrapped">
-        <app-collection-card></app-collection-card>
-        <app-collection-card></app-collection-card>
-        <app-collection-card></app-collection-card>
-    </div> -->
-
     <div class="collection-wrapped">
-        <app-nft-card></app-nft-card>
+        <app-collection-card
+            *ngFor="let c of collections"
+            [collection]="c"
+        ></app-collection-card>
     </div>
+
+    <!-- <div class="collection-wrapped">
+        <app-nft-card></app-nft-card>
+    </div> -->
 
 </div>
