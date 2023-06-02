@@ -19,7 +19,8 @@ export class NftComponent implements OnInit {
 
   ngOnInit(): void {
     this.tokenMint = this.route.snapshot.paramMap.get('tokenMint');
-    if (this.tokenMint)
+    console.log('this.tokenMint', this.tokenMint);
+    if (!this.tokenMint)
       this.router.navigate(['/collections']);
     else
       this.getNFT();

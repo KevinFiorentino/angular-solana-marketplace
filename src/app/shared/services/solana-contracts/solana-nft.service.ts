@@ -43,16 +43,25 @@ export class SolanaNftService {
     if (!provider || !provider.publicKey)
       throw new Error('User\'s wallet not connected.');
 
+    console.log('provider.publicKey', provider.publicKey.toString());
+
     // Prepare PDAs
     const collectionKP = Keypair.generate();
+    const collectionTokenMint = collectionKP.publicKey;
     const collectionATA = getAssociatedTokenAddressSync(
-      collectionKP.publicKey,
+      collectionTokenMint,
       provider.publicKey,
     );
-    const collectionPDA = this.getCollectionPDA(collectionKP.publicKey, provider.publicKey);
-    const collectionMetadataPDA = this.getMetadataPDA(collectionKP.publicKey);
-    const collectionMasterEditionPDA = this.getMasterEditionPDA(collectionKP.publicKey);
-    const collectionAuthorityRecordPDA = this.getCollectionAuthorityRecordPDA(collectionKP.publicKey, collectionPDA);
+    const collectionPDA = this.getCollectionPDA(provider.publicKey, collectionTokenMint);
+    const collectionMetadataPDA = this.getMetadataPDA(collectionTokenMint);
+    const collectionMasterEditionPDA = this.getMasterEditionPDA(collectionTokenMint);
+    const collectionAuthorityRecordPDA = this.getCollectionAuthorityRecordPDA(collectionTokenMint, collectionPDA);
+
+    console.log('collectionATA', collectionATA.toString());
+    console.log('collectionPDA', collectionPDA.toString());
+    console.log('collectionMetadataPDA', collectionMetadataPDA.toString());
+    console.log('collectionMasterEditionPDA', collectionMasterEditionPDA.toString());
+    console.log('collectionAuthorityRecordPDA', collectionAuthorityRecordPDA.toString());
 
     // Create and sign transaction
     const t = new Transaction();
@@ -64,13 +73,13 @@ export class SolanaNftService {
 
     const i = await program.methods
       .mintCollection(
-        'My First Collection',
-        'MFC',
-        'https://arweave.net/l0Vjj3rZKQm-FVbCCj2OH15YMWAveUseuCLGkcPE-x0',    // Image URI
-        'https://arweave.net/mF0bbubycS50wu2-WSkZoU2g5scupj0hfzk8eqFEtpA',    // Metadata URI
+        collectionData.collectionName,
+        collectionData.collectionSymbol,
+        collectionData.imageUri,
+        collectionData.metadataUri,
       )
       .accounts({
-        mint: collectionKP.publicKey,
+        mint: collectionTokenMint,
         mintAuthority: provider.publicKey,
         payer: provider.publicKey,
         rent: SYSVAR_RENT_PUBKEY,
@@ -114,20 +123,21 @@ export class SolanaNftService {
       throw new Error('User\'s wallet not connected.');
 
     // Prepare Collection PDAs
-    const collectionPDA = this.getCollectionPDA(collectionTokenMint, provider.publicKey);
+    const collectionPDA = this.getCollectionPDA(provider.publicKey, collectionTokenMint);
     const collectionMetadataPDA = this.getMetadataPDA(collectionTokenMint);
     const collectionMasterEditionPDA = this.getMasterEditionPDA(collectionTokenMint);
     const collectionAuthorityRecordPDA = this.getCollectionAuthorityRecordPDA(collectionTokenMint, collectionPDA);
 
     // Prepare NFTs PDAs
     const nftKP = Keypair.generate();
+    const nftTokenMint = nftKP.publicKey;
     const nftATA = getAssociatedTokenAddressSync(
-      nftKP.publicKey,
+      nftTokenMint,
       provider.publicKey,
     );
-    const nftPDA = this.getNftPDA(collectionPDA, nftKP.publicKey);
-    const nftMetadataPDA = this.getMetadataPDA(nftKP.publicKey);
-    const nftMasterEditionPDA = this.getMasterEditionPDA(nftKP.publicKey);
+    const nftPDA = this.getNftPDA(collectionPDA, nftTokenMint);
+    const nftMetadataPDA = this.getMetadataPDA(nftTokenMint);
+    const nftMasterEditionPDA = this.getMasterEditionPDA(nftTokenMint);
 
     // Create and sign transaction
     const t = new Transaction();
@@ -144,7 +154,7 @@ export class SolanaNftService {
         'https://arweave.net/mF0bbubycS50wu2-WSkZoU2g5scupj0hfzk8eqFEtpA',    // Metadata URI
       )
       .accounts({
-        mint: nftKP.publicKey,
+        mint: nftTokenMint,
         mintAuthority: provider.publicKey,
         payer: provider.publicKey,
         rent: SYSVAR_RENT_PUBKEY,
@@ -179,10 +189,9 @@ export class SolanaNftService {
     symbol: string,
     description: string,
     imageURI: string,
-    website: ExternalUrl = 'https://queenbe.io',
     type: TokenType,
-    ipfsImageHash: string,
     data = {},
+    website: ExternalUrl = 'https://queenbe.io',
   ): TokenMetadataStandard {
     return {
       name: name,
@@ -192,7 +201,6 @@ export class SolanaNftService {
       external_url: website,
       project: 'queenbe',
       type: type,
-      ipfsImageHash: ipfsImageHash,
       data: data,
     };
   }
@@ -262,13 +270,13 @@ export class SolanaNftService {
     return collectionPDA;
   }
 
-  getNftPDA(collectionPDA: PublicKey, NftTokenMint: PublicKey): PublicKey {
+  getNftPDA(collectionPDA: PublicKey, nftTokenMint: PublicKey): PublicKey {
     const [nftPDA] = web3.PublicKey
       .findProgramAddressSync(
         [
           Buffer.from('nft'),
           collectionPDA.toBuffer(),
-          NftTokenMint.toBuffer(),
+          nftTokenMint.toBuffer(),
         ],
         this.programID
       );

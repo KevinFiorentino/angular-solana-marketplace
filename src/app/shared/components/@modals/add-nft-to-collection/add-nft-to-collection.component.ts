@@ -1,7 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import { SolanaNftService } from '@shared/services/solana-contracts/solana-nft.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { SolanaNftService } from '@shared/services/solana-contracts/solana-nft.service';
+import { IpfsService } from '@shared/services/ipfs.service';
 
 @Component({
   selector: 'app-add-nft-to-collection',
@@ -15,7 +16,7 @@ export class AddNftToCollectionComponent implements OnInit {
     description: ['', Validators.required],
   });
 
-  public fileBuffer!: any;
+  public fileBuffer!: Buffer;
   public originalName = '';
   public ext = '';
   public errorImage = false;
@@ -23,6 +24,7 @@ export class AddNftToCollectionComponent implements OnInit {
   constructor(
     private formBuilder: UntypedFormBuilder,
     private solanaNftService: SolanaNftService,
+    private ipfsService: IpfsService,
     private dialog: MatDialogRef<AddNftToCollectionComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
@@ -30,7 +32,7 @@ export class AddNftToCollectionComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  addNFT(): void {
+  async addNFT() {
     this.errorImage = false;
     if (!this.fileBuffer) {
       this.errorImage = true;

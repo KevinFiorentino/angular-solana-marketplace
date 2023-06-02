@@ -4,6 +4,12 @@ import { create, IPFSHTTPClient } from 'ipfs-http-client';
 import { TokenMetadataStandard } from '@shared/models/metadata.interface';
 import { environment } from '@environments/environment';
 
+export interface IpfsResponse {
+  cid: any;
+  path: string;     // This is the IPFS ID
+  size: number;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -26,12 +32,16 @@ export class IpfsService {
     });
   }
 
-  addBufferFile(dataBuffer: Buffer) {
+  addBufferFile(dataBuffer: Buffer): Promise<IpfsResponse> {
     return this.ipfsClient.add(dataBuffer);
   }
 
-  addJsonFile(objectContent: TokenMetadataStandard) {
+  addJsonFile(objectContent: TokenMetadataStandard): Promise<IpfsResponse> {
     return this.ipfsClient.add(JSON.stringify(objectContent));
+  }
+
+  buildFilePath(hash: string): string {
+    return `https://gateway.ipfscdn.io/ipfs/${hash}`;
   }
 
   getFile(hash: string): Promise<any> {

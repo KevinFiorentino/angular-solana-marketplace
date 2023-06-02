@@ -12,6 +12,5 @@ export interface TokenMetadataStandard {
   // Custom Metadata
   project: ProjectName;
   type: TokenType;
-  ipfsImageHash: string;
   data: any;                  // Custom data, certificates, vouchers, anything
 }

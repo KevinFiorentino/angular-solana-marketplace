@@ -1,7 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import { SolanaNftService } from '@shared/services/solana-contracts/solana-nft.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { SolanaNftService } from '@shared/services/solana-contracts/solana-nft.service';
+import { IpfsService } from '@shared/services/ipfs.service';
 
 @Component({
   selector: 'app-new-collection',
@@ -11,12 +12,12 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class NewCollectionComponent implements OnInit {
 
   public form: UntypedFormGroup = this.formBuilder.group({
-    name: ['', Validators.required],
-    symbol: ['', Validators.required],
-    description: ['', Validators.required],
+    name: ['NFTCollection', Validators.required],
+    symbol: ['NFTC', Validators.required],
+    description: ['My collection...', Validators.required],
   });
 
-  public fileBuffer!: any;
+  public fileBuffer!: Buffer;
   public originalName = '';
   public ext = '';
   public errorImage = false;
@@ -24,6 +25,7 @@ export class NewCollectionComponent implements OnInit {
   constructor(
     private formBuilder: UntypedFormBuilder,
     private solanaNftService: SolanaNftService,
+    private ipfsService: IpfsService,
     private dialog: MatDialogRef<NewCollectionComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
@@ -31,13 +33,42 @@ export class NewCollectionComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  newCollection(): void {
+  async newCollection() {
     this.errorImage = false;
     if (!this.fileBuffer) {
       this.errorImage = true;
       return;
     }
     if (this.form.valid) {
+      // Step 1: Upload image to IPFS
+      // const ipfsImage = await this.ipfsService.addBufferFile(this.fileBuffer);
+      const ipfsImageHash = 'QmTsRxRpmWgc5rtaRkE77MYbp3qS3Qsjb7CiYmSSVmhF4V'; // ipfsImage.path;
+      const ipfsImageUri = this.ipfsService.buildFilePath(ipfsImageHash);
+
+      // Step 2: Create off-chain Metadata
+      const metadata = this.solanaNftService.buildMetadataJSON(
+        this.form.get('name')?.value,
+        this.form.get('symbol')?.value,
+        this.form.get('description')?.value,
+        ipfsImageUri,
+        'collection',
+      );
+      console.log('metadata', metadata);
+
+      // Step 3: Upload off-chain Metadata to IPFS
+      // const ipfsMetadata = await this.ipfsService.addJsonFile(metadata);
+      const ipfsMetadataHash = 'QmQkWBkXqYvTSzHJmhmMD9B43NHBW6ybbKc1h2fbxr9LiE'; // ipfsMetadata.path;
+      const ipfsMetadataUri = this.ipfsService.buildFilePath(ipfsMetadataHash);
+      console.log('ipfsMetadataUri', ipfsMetadataUri);
+
+      // Step 4: Create collection on Solana
+      const tx = await this.solanaNftService.mintCollection({
+        collectionName: this.form.get('name')?.value,
+        collectionSymbol: this.form.get('symbol')?.value,
+        imageUri: ipfsImageUri,
+        metadataUri: ipfsMetadataUri,
+      });
+      console.log('tx', tx);
 
     }
   }

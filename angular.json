@@ -36,6 +36,7 @@
               "borsh",
               "buffer",
               "camelcase",
+              "err-code",
               "eventemitter3",
               "jayson/lib/client/browser",
               "js-sha256",
