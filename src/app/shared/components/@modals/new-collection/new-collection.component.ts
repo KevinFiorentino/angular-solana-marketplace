@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SolanaNftService } from '@shared/services/solana-contracts/solana-nft.service';
@@ -9,7 +9,9 @@ import { IpfsService } from '@shared/services/ipfs.service';
   templateUrl: './new-collection.component.html',
   styleUrls: ['./new-collection.component.scss']
 })
-export class NewCollectionComponent implements OnInit {
+export class NewCollectionComponent {
+
+  public loading = false;
 
   public form: UntypedFormGroup = this.formBuilder.group({
     name: ['NFTCollection', Validators.required],
@@ -19,7 +21,6 @@ export class NewCollectionComponent implements OnInit {
 
   public fileBuffer!: Buffer;
   public originalName = '';
-  public ext = '';
   public errorImage = false;
 
   constructor(
@@ -29,9 +30,6 @@ export class NewCollectionComponent implements OnInit {
     private dialog: MatDialogRef<NewCollectionComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
-
-  ngOnInit(): void {
-  }
 
   async newCollection() {
     this.errorImage = false;
@@ -62,14 +60,18 @@ export class NewCollectionComponent implements OnInit {
       console.log('ipfsMetadataUri', ipfsMetadataUri);
 
       // Step 4: Create collection on Solana
-      const tx = await this.solanaNftService.mintCollection({
+      await this.solanaNftService.mintCollection({
         collectionName: this.form.get('name')?.value,
         collectionSymbol: this.form.get('symbol')?.value,
         imageUri: ipfsImageUri,
         metadataUri: ipfsMetadataUri,
+      }).then(tx => {
+        this.loading = false;
+        this.data.callback(tx);
+        this.closeModal();
+      }).catch(err => {
+        this.loading = false;
       });
-      console.log('tx', tx);
-
     }
   }
 
@@ -82,7 +84,6 @@ export class NewCollectionComponent implements OnInit {
         this.fileBuffer = e.target.result;
       };
       this.originalName = inputNode.files[0].name;
-      this.ext = inputNode.files[0].name.split('.')[inputNode.files[0].name.split('.').length-1];
       reader.readAsArrayBuffer(inputNode.files[0]);
     }
   }

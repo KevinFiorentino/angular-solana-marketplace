@@ -10,6 +10,8 @@ import { PublicKey } from '@solana/web3.js';
 })
 export class NftComponent implements OnInit {
 
+  public loading = true;
+
   public address!: string | null;
   public tokenMint!: PublicKey;
   public nft!: any;
@@ -34,15 +36,19 @@ export class NftComponent implements OnInit {
     }
     catch {
       this.invalidAddress = true;
+      this.loading = false;
     }
   }
 
   getTokenFromSolana(): void {
     this.solanaNftService.getTokenFromSolana(this.tokenMint)
-      .then(token => {
-        console.log(token);
+      .then(nft => {
+        this.nft = nft;
+        this.loading = false;
+        console.log('nft', nft);
       })
       .catch(err => {
+        this.loading = false;
         console.log('Err', err.message);
       });
   }

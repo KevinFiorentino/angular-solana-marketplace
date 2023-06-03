@@ -1,15 +1,23 @@
 <div class="app-title">
     <h1>Collections</h1>
-    <button (click)="newCollection()" class="btn-action" mat-button>New collection</button>
+    <button *ngIf="walletAddress" (click)="newCollection()" class="btn-action" mat-button>New collection</button>
 </div>
 
 <div class="app-collections">
 
-    <div class="collection-wrapped">
-        <app-collection-card
-            *ngFor="let c of collections"
-            [collection]="c"
-        ></app-collection-card>
+    <div *ngIf="!loading; else appLoading" class="center-layout">
+        <div class="collection-wrapped">
+            <app-collection-card
+                *ngFor="let c of collections"
+                [collection]="c"
+            ></app-collection-card>
+        </div>
     </div>
+
+    <ng-template #appLoading>
+        <mat-spinner
+            [diameter]="40"
+        ></mat-spinner>
+    </ng-template>
 
 </div>

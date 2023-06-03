@@ -11,6 +11,8 @@ import { IpfsService } from '@shared/services/ipfs.service';
 })
 export class AddNftToCollectionComponent implements OnInit {
 
+  public loading = false;
+
   public form: UntypedFormGroup = this.formBuilder.group({
     name: ['', Validators.required],
     description: ['', Validators.required],
@@ -18,7 +20,6 @@ export class AddNftToCollectionComponent implements OnInit {
 
   public fileBuffer!: Buffer;
   public originalName = '';
-  public ext = '';
   public errorImage = false;
 
   constructor(
@@ -52,7 +53,6 @@ export class AddNftToCollectionComponent implements OnInit {
         this.fileBuffer = e.target.result;
       };
       this.originalName = inputNode.files[0].name;
-      this.ext = inputNode.files[0].name.split('.')[inputNode.files[0].name.split('.').length-1];
       reader.readAsArrayBuffer(inputNode.files[0]);
     }
   }

@@ -2,20 +2,22 @@
 
 ::ng-deep .app-title {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
+    width: 70%;
+    margin: auto;
 
     h1 {
         font-weight: 500;
-        width: 70%;
         margin-top: 15px;
     }
-    @media (max-width: 768px) {
-        h1 {
-            width: 90%;
-        }
+}
+@media (max-width: 768px) {
+    ::ng-deep .app-title {
+        width: 95%;
     }
 }
+
 
 ::ng-deep .btn-action {
     color: $color-white;
@@ -36,6 +38,12 @@
     height: 70px;
     border: dashed 1px #1D1D1D;
     border-radius: 5px;
+}
+
+::ng-deep .center-layout {
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 // Alerts
