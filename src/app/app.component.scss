@@ -1,50 +1,52 @@
 @import "./variables";
 
-::ng-deep .app-title {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 70%;
-    margin: auto;
+::ng-deep {
+    .app-title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 70%;
+        margin: auto;
 
-    h1 {
-        font-weight: 500;
-        margin-top: 15px;
+        h1 {
+            font-weight: 500;
+            margin-top: 15px;
+        }
+    }
+    .btn-action {
+        color: $color-white;
+        background-color: $color-phantom;
+        border: 2px solid $color-phantom;
+        border-radius: 5px;
+        box-shadow: 0 3px 6px #00000029;
+        margin-top: 10px;
+        height: 36px;
+    }
+    .file-box {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 70px;
+        border: dashed 1px #1D1D1D;
+        border-radius: 5px;
+    }
+    @media (max-width: 768px) {
+        ::ng-deep .app-title {
+            width: 95%;
+        }
+    }
+    .center-layout {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+    .invalid-address {
+        text-align: center;
     }
 }
-@media (max-width: 768px) {
-    ::ng-deep .app-title {
-        width: 95%;
-    }
-}
 
-
-::ng-deep .btn-action {
-    color: $color-white;
-    background-color: $color-phantom;
-    border: 2px solid $color-phantom;
-    border-radius: 5px;
-    box-shadow: 0 3px 6px #00000029;
-    margin-top: 10px;
-    height: 36px;
-}
-
-::ng-deep .file-box {
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 70px;
-    border: dashed 1px #1D1D1D;
-    border-radius: 5px;
-}
-
-::ng-deep .center-layout {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-}
 
 // Alerts
 ::ng-deep snack-bar-container {

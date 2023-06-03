@@ -47,6 +47,7 @@ export class MyCollectionsComponent implements OnInit, OnDestroy {
   }
 
   getUserCollections(pk: PublicKey): void {
+    this.loading = true
     this.solanaNftService.getCollectionsByOwner(pk)
       .then(collections => {
         this.collections = collections;

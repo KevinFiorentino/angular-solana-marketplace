@@ -10,6 +10,8 @@ import { SolanaNftService } from '@shared/services/solana-contracts/solana-nft.s
 })
 export class CollectionComponent implements OnInit {
 
+  public loading = true;
+
   public address!: string | null;
   public tokenMint!: PublicKey;
   public collectionPDA!: PublicKey;
@@ -37,6 +39,7 @@ export class CollectionComponent implements OnInit {
     }
     catch {
       this.invalidAddress = true;
+      this.loading = false;
     }
   }
 
@@ -49,6 +52,11 @@ export class CollectionComponent implements OnInit {
           this.collectionPDA = this.solanaNftService.getCollectionPDA(owner, this.tokenMint);
           this.getNftFromCollection();
         }
+        this.loading = false;
+      })
+      .catch(err => {
+        this.loading = false;
+        console.log('Err', err.message);
       });
   }
 

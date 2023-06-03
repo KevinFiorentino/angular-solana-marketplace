@@ -1,16 +1,28 @@
+<div class="app-title">
+    <h1>NFT Viewer</h1>
+</div>
+
 <div class="app-nft">
 
-    <div *ngIf="invalidAddress">
+    <div *ngIf="invalidAddress" class="invalid-address">
         <p>"{{ address }}" is not a valid address</p>
     </div>
 
-    <div *ngIf="nft">
-        <div class="app-title">
-            <h1>NFT: XXX</h1>
-        </div>
-        <div>
+    <div *ngIf="!loading; else appLoading" class="center-layout">
+        <div *ngIf="nft">
+            <div class="app-title">
+                <h1>NFT: XXX</h1>
+            </div>
+            <div>
 
+            </div>
         </div>
     </div>
+
+    <ng-template #appLoading>
+        <mat-spinner
+            [diameter]="40"
+        ></mat-spinner>
+    </ng-template>
 
 </div>

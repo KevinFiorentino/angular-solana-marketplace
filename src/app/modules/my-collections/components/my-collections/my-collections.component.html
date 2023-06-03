@@ -1,5 +1,5 @@
 <div class="app-title">
-    <h1>My collections</h1>
+    <h1>My Collections</h1>
     <button *ngIf="walletAddress" (click)="newCollection()" class="btn-action" mat-button>New collection</button>
 </div>
 
@@ -15,7 +15,14 @@
                 ></app-collection-card>
             </div>
 
+            <ng-template #withoutCollections>
+                <div class="without-collections">
+                    <p>You haven't created NFT collections yet.</p>
+                </div>
+            </ng-template>
+
         </div>
+
     </div>
 
     <ng-template #logout>
@@ -28,12 +35,6 @@
         <mat-spinner
             [diameter]="40"
         ></mat-spinner>
-    </ng-template>
-
-    <ng-template #withoutCollections>
-        <div class="without-collections">
-            <p>You haven't created NFT collections yet.</p>
-        </div>
     </ng-template>
 
 </div>
