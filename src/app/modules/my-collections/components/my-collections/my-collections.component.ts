@@ -56,20 +56,20 @@ export class MyCollectionsComponent implements OnInit, OnDestroy {
       });
   }
 
+  newCollection(): void {
+    this.dialog.open(NewCollectionComponent, {
+      data: {
+        callback: this.newCollectionCallback.bind(this)
+      }
+    });
+  }
+
   newCollectionCallback(tx: string): void {
     this.snackBar.open(`Tx Id: ${tx}`, 'Close', {
       duration: 7000,
       horizontalPosition: 'right',
       verticalPosition: 'bottom',
       panelClass: ['app-alert-success']
-    });
-  }
-
-  newCollection(): void {
-    this.dialog.open(NewCollectionComponent, {
-      data: {
-        callback: this.newCollectionCallback.bind(this)
-      }
     });
   }
 

@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { PublicKey } from '@metaplex-foundation/js';
 import { SolanaNftService } from '@shared/services/solana-contracts/solana-nft.service';
 import { IpfsService } from '@shared/services/ipfs.service';
 
@@ -22,6 +23,9 @@ export class AddNftToCollectionComponent implements OnInit {
   public originalName = '';
   public errorImage = false;
 
+  private collectionMint!: PublicKey;
+  private collectionPDA!: PublicKey;
+
   constructor(
     private formBuilder: UntypedFormBuilder,
     private solanaNftService: SolanaNftService,
@@ -31,6 +35,9 @@ export class AddNftToCollectionComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    console.log('this.data', this.data);
+    this.collectionMint = this.data.collectionMint;
+    this.collectionPDA = this.data.collectionPDA;
   }
 
   async addNFT() {

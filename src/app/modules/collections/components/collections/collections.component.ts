@@ -47,15 +47,6 @@ export class CollectionsComponent implements OnInit {
       });
   }
 
-  newCollectionCallback(tx: string): void {
-    this.snackBar.open(`Tx Id: ${tx}`, 'Close', {
-      duration: 7000,
-      horizontalPosition: 'right',
-      verticalPosition: 'bottom',
-      panelClass: ['app-alert-success']
-    });
-  }
-
   newCollection(): void {
     this.dialog.open(NewCollectionComponent, {
       data: {
@@ -64,5 +55,13 @@ export class CollectionsComponent implements OnInit {
     });
   }
 
+  newCollectionCallback(tx: string): void {
+    this.snackBar.open(`Tx Id: ${tx}`, 'Close', {
+      duration: 7000,
+      horizontalPosition: 'right',
+      verticalPosition: 'bottom',
+      panelClass: ['app-alert-success']
+    });
+  }
 
 }

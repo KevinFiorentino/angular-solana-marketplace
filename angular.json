@@ -51,6 +51,7 @@
               "debug",
               "err-code",
               "eventemitter3",
+              "ipfs-utils/src/http.js",
               "ipfs-utils/src/files/url-source.js",
               "jayson/lib/client/browser",
               "js-sha256",

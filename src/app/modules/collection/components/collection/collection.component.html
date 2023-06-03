@@ -1,5 +1,6 @@
 <div class="app-title">
     <h1>Collection Viewer</h1>
+    <button *ngIf="walletAddress" (click)="mintFromCollection()" class="btn-action" mat-button>Mint from collection</button>
 </div>
 
 <div class="app-collection">
@@ -10,7 +11,7 @@
 
     <div *ngIf="!loading; else appLoading" class="center-layout">
         <div *ngIf="collection">
-            <div class="app-title">
+            <div>
                 <h1>NFT: XXX</h1>
             </div>
             <div>
