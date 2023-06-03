@@ -121,6 +121,28 @@ export class SolanaNftService {
     return program.account.collectionAccount.all();
   }
 
+  getCollectionsByOwner(walletAddress: PublicKey): Promise<ProgramAccount<IdlTypes<SolanaNft>>[]> {
+    const provider = getProvider();
+    const program = new Program(IDL, this.programID, provider);
+    return program.account.collectionAccount.all([{
+      memcmp: {
+        bytes: walletAddress.toBase58(),
+        offset: 8
+      }
+    }]);
+  }
+
+  getCollectionByMint(tokenMint: PublicKey): Promise<ProgramAccount<IdlTypes<SolanaNft>>[]> {
+    const provider = getProvider();
+    const program = new Program(IDL, this.programID, provider);
+    return program.account.collectionAccount.all([{
+      memcmp: {
+        bytes: tokenMint.toBase58(),
+        offset: 40
+      }
+    }]);
+  }
+
 
   /* ******************************
            NFTs FUNCTIONS
@@ -164,9 +186,9 @@ export class SolanaNftService {
 
     const i = await program.methods
       .mintNftFromCollection(
-        'First NFT',
-        'https://arweave.net/l0Vjj3rZKQm-FVbCCj2OH15YMWAveUseuCLGkcPE-x0',    // Image URI
-        'https://arweave.net/mF0bbubycS50wu2-WSkZoU2g5scupj0hfzk8eqFEtpA',    // Metadata URI
+        nftData.nftName,
+        nftData.nftImageUri,
+        nftData.nftMetadataUri,
       )
       .accounts({
         mint: nftTokenMint,
@@ -192,6 +214,17 @@ export class SolanaNftService {
     t.add(i);
 
     return this.phantom.signAndSendTransactionWeb(t, nftKP);
+  }
+
+  getNftsByCollectionPDA(collectionPDA: PublicKey): Promise<ProgramAccount<IdlTypes<SolanaNft>>[]> {
+    const provider = getProvider();
+    const program = new Program(IDL, this.programID, provider);
+    return program.account.nftAccount.all([{
+      memcmp: {
+        bytes: collectionPDA.toBase58(),
+        offset: 40
+      }
+    }]);
   }
 
 

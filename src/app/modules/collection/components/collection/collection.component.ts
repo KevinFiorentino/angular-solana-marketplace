@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { PublicKey } from '@solana/web3.js';
 import { SolanaNftService } from '@shared/services/solana-contracts/solana-nft.service';
 
 @Component({
@@ -9,8 +10,14 @@ import { SolanaNftService } from '@shared/services/solana-contracts/solana-nft.s
 })
 export class CollectionComponent implements OnInit {
 
-  public tokenMint!: string | null;
+  public address!: string | null;
+  public tokenMint!: PublicKey;
+  public collectionPDA!: PublicKey;
+
   public collection!: any;
+  public nfts!: any;
+
+  public invalidAddress = false;
 
   constructor(
     private router: Router,
@@ -19,15 +26,37 @@ export class CollectionComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.tokenMint = this.route.snapshot.paramMap.get('tokenMint');
-    if (this.tokenMint)
+    this.address = this.route.snapshot.paramMap.get('tokenMint');
+    if (!this.address) {
       this.router.navigate(['/collections']);
-    else
+      return;
+    }
+    try {
+      this.tokenMint = new PublicKey(this.address);
       this.getCollection();
+    }
+    catch {
+      this.invalidAddress = true;
+    }
   }
 
   getCollection(): void {
+    this.solanaNftService.getCollectionByMint(this.tokenMint)
+      .then(collection => {
+        console.log('collection', collection);
+        if (collection.length > 0) {
+          const owner = (collection[0].account as any).owner as PublicKey;
+          this.collectionPDA = this.solanaNftService.getCollectionPDA(owner, this.tokenMint);
+          this.getNftFromCollection();
+        }
+      });
+  }
 
+  getNftFromCollection(): void {
+    this.solanaNftService.getNftsByCollectionPDA(this.collectionPDA)
+      .then(nfts => {
+        console.log('nfts', nfts);
+      });
   }
 
 }

@@ -10,7 +10,11 @@ import { PublicKey } from '@solana/web3.js';
 })
 export class NftComponent implements OnInit {
 
+  public address!: string | null;
   public tokenMint!: PublicKey;
+  public nft!: any;
+
+  public invalidAddress = false;
 
   constructor(
     private router: Router,
@@ -19,19 +23,27 @@ export class NftComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    const tm = this.route.snapshot.paramMap.get('tokenMint');
-    if (!tm) {
+    this.address = this.route.snapshot.paramMap.get('tokenMint');
+    if (!this.address) {
       this.router.navigate(['/collections']);
       return;
     }
-    this.tokenMint = new PublicKey(tm);
-    this.getNFT();
+    try {
+      this.tokenMint = new PublicKey(this.address);
+      this.getTokenFromSolana();
+    }
+    catch {
+      this.invalidAddress = true;
+    }
   }
 
-  getNFT(): void {
+  getTokenFromSolana(): void {
     this.solanaNftService.getTokenFromSolana(this.tokenMint)
       .then(token => {
         console.log(token);
+      })
+      .catch(err => {
+        console.log('Err', err.message);
       });
   }
 

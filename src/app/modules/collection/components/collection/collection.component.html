@@ -1,7 +1,17 @@
-<div class="app-title">
-    <h1>Collection: XXX</h1>
-</div>
-
 <div class="app-collection">
 
+    <div *ngIf="invalidAddress">
+        <p>"{{ address }}" is not a valid address</p>
+    </div>
+
+    <div *ngIf="collection">
+        <div class="app-title">
+            <h1>Collection: XXX</h1>
+        </div>
+        <div>
+
+        </div>
+    </div>
+
 </div>
+
