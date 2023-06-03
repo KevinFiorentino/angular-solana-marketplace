@@ -5,8 +5,9 @@
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
-    "allowSyntheticDefaultImports": true,
     "strict": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
@@ -15,13 +16,24 @@
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,
-    "target": "es2020",
-    "module": "es2020",
-    "lib": [
-      "es2018",
-      "dom"
-    ],
+    "skipLibCheck": true,
+    "target": "ES2022",
+    "module": "ES2022",
+    "useDefineForClassFields": false,
+    "lib": ["ES2022", "dom"],
+    "strictPropertyInitialization": false,
     "paths": {
+      // System Paths
+      "assert": ["node_modules/assert"],
+      "crypto": ["node_modules/crypto-browserify"],
+      "http": ["node_modules/stream-http"],
+      "https": ["node_modules/https-browserify"],
+      "os": ["node_modules/os-browserify"],
+      "path": ["node_modules/path-browserify"],
+      "process": ["node_modules/process"],
+      "stream": ["node_modules/stream-browserify"],
+      "zlib": ["node_modules/browserify-zlib"],
+      // Custom Paths
       "@environments/*": ["src/environments/*"],
       "@material/*": ["src/app/material/*"],
       "@modules/*": ["src/app/modules/*"],
@@ -32,6 +44,7 @@
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
-    "strictTemplates": true
+    "strictTemplates": true,
+    "allowSyntheticDefaultImports": true
   }
 }

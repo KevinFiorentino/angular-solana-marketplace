@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
-import { PublicKey, Keypair, SystemProgram, SYSVAR_RENT_PUBKEY, Transaction, ComputeBudgetProgram } from '@solana/web3.js';
+import { Connection, PublicKey, Keypair, SystemProgram, SYSVAR_RENT_PUBKEY, Transaction, ComputeBudgetProgram } from '@solana/web3.js';
 import { web3, Program, ProgramAccount, getProvider, IdlTypes } from '@project-serum/anchor';
 import { getAssociatedTokenAddressSync, TOKEN_PROGRAM_ID } from '@solana/spl-token';
+import { Metaplex } from '@metaplex-foundation/js';
+import { Metadata } from "@metaplex-foundation/mpl-token-metadata";
 import { PhantomConnectService } from '@shared/services/phantom/phantom-connect.service';
 import { IDL, SolanaNft } from '@shared/idls/solana-nft.idl';
 import { MintCollection } from '@shared/models/collection.interface';
@@ -22,11 +24,24 @@ const SPL_ASSOCIATED_TOKEN_ACCOUNT_PROGRAM_ID = new PublicKey(
 })
 export class SolanaNftService {
 
+  private connection: Connection;
   private programID = new PublicKey(IDL.metadata.address);
 
   constructor(
     private phantom: PhantomConnectService,
-  ) {}
+  ) {
+    this.connection = this.phantom.getConnection();
+  }
+
+
+  /* ****************************************
+                  GET NFTs
+  **************************************** */
+
+  async getTokenFromSolana(tokenMint: PublicKey) {
+    const metaplex = Metaplex.make(this.connection);
+    return metaplex.nfts().findByMint({ mintAddress: tokenMint });
+  }
 
 
   /* ******************************

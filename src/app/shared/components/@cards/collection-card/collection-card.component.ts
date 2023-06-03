@@ -15,7 +15,7 @@ export class CollectionCardComponent implements OnInit {
 
   ngOnInit(): void {
     console.log('collection', this.collection);
-    this.tokenMint = this.collection.publicKey.toString();
+    this.tokenMint = this.collection.account.tokenMint.toString();
   }
 
 }

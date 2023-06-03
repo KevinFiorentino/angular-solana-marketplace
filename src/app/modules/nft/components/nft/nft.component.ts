@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SolanaNftService } from '@shared/services/solana-contracts/solana-nft.service';
+import { PublicKey } from '@solana/web3.js';
 
 @Component({
   selector: 'app-nft',
@@ -9,7 +10,7 @@ import { SolanaNftService } from '@shared/services/solana-contracts/solana-nft.s
 })
 export class NftComponent implements OnInit {
 
-  public tokenMint!: string | null;
+  public tokenMint!: PublicKey;
 
   constructor(
     private router: Router,
@@ -18,16 +19,20 @@ export class NftComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.tokenMint = this.route.snapshot.paramMap.get('tokenMint');
-    console.log('this.tokenMint', this.tokenMint);
-    if (!this.tokenMint)
+    const tm = this.route.snapshot.paramMap.get('tokenMint');
+    if (!tm) {
       this.router.navigate(['/collections']);
-    else
-      this.getNFT();
+      return;
+    }
+    this.tokenMint = new PublicKey(tm);
+    this.getNFT();
   }
 
   getNFT(): void {
-
+    this.solanaNftService.getTokenFromSolana(this.tokenMint)
+      .then(token => {
+        console.log(token);
+      });
   }
 
 }

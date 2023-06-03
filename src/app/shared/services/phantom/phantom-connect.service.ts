@@ -67,6 +67,10 @@ export class PhantomConnectService {
 
   /* ********** NETWORK CONEXION ********** */
 
+  getConnection(): Connection {
+    return this.connection;
+  }
+
   setAnchorProvider(): void {
     const opts: ConfirmOptions = {
       preflightCommitment: this.comm,
