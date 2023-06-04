@@ -1,5 +1,14 @@
 @import "../../../../variables";
 
 ::ng-deep .app-collection {
+    display: flex;
+    justify-content: center;
 
+    .collection-wrapped {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-gap: 10px;
+        width: 70%;
+        margin-top: 15px;
+    }
 }

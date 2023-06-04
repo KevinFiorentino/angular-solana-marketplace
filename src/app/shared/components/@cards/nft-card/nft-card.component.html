@@ -1,16 +1,13 @@
 <mat-card class="app-nft-card">
     <div class="card-img">
-        <img src="https://arweave.net/l0Vjj3rZKQm-FVbCCj2OH15YMWAveUseuCLGkcPE-x0" alt="Token Name" mat-card-image>
+        <img src="{{ nft.account.imageUri }}" alt="{{ nft.account.name }}" mat-card-image>
     </div>
     <mat-card-content>
         <div>
-            <h3>My First NFT</h3>
+            <h3>{{ nft.account.name }}</h3>
         </div>
     </mat-card-content>
     <mat-card-actions>
-        <a class="btn-action" mat-button>
-            See collection
-        </a>
         <a class="btn-action" mat-button>
             See NFT
         </a>

@@ -10,12 +10,15 @@
     </div>
 
     <div *ngIf="!loading; else appLoading" class="center-layout">
-        <div *ngIf="collection">
+        <div *ngIf="collection" class="center-layout">
             <div>
-                <h1>NFT: XXX</h1>
+                <h1>NFT: {{ collection.account.name }}</h1>
             </div>
-            <div>
-
+            <div *ngIf="nfts && nfts.length > 0" class="collection-wrapped">
+                <app-nft-card
+                    *ngFor="let n of nfts"
+                    [nft]="n"
+                ></app-nft-card>
             </div>
         </div>
     </div>

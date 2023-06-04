@@ -22,7 +22,7 @@ export class CollectionComponent implements OnInit {
   public collectionPDA!: PublicKey;
 
   public collection!: any;
-  public nfts!: any;
+  public nfts!: any[];
 
   public invalidAddress = false;
 
@@ -84,6 +84,7 @@ export class CollectionComponent implements OnInit {
     this.solanaNftService.getNftsByCollectionPDA(this.collectionPDA)
       .then(nfts => {
         console.log('nfts', nfts);
+        this.nfts = nfts;
       });
   }
 
