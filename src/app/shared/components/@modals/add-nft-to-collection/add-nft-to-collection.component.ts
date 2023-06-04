@@ -24,7 +24,8 @@ export class AddNftToCollectionComponent implements OnInit {
   public errorImage = false;
 
   private collectionMint!: PublicKey;
-  private collectionPDA!: PublicKey;
+
+  public symbol!: string;
 
   constructor(
     private formBuilder: UntypedFormBuilder,
@@ -37,7 +38,7 @@ export class AddNftToCollectionComponent implements OnInit {
   ngOnInit(): void {
     console.log('this.data', this.data);
     this.collectionMint = this.data.collectionMint;
-    this.collectionPDA = this.data.collectionPDA;
+    this.symbol = this.data.collectionSymbol
   }
 
   async addNFT() {
@@ -47,7 +48,41 @@ export class AddNftToCollectionComponent implements OnInit {
       return;
     }
     if (this.form.valid) {
+      // Step 1: Upload image to IPFS
+      // const ipfsImage = await this.ipfsService.addBufferFile(this.fileBuffer);
+      const ipfsImageHash = 'QmTsRxRpmWgc5rtaRkE77MYbp3qS3Qsjb7CiYmSSVmhF4V' // ipfsImage.path;
+      const ipfsImageUri = this.ipfsService.buildFilePath(ipfsImageHash);
 
+      // Step 2: Create off-chain Metadata
+      const metadata = this.solanaNftService.buildMetadataJSON(
+        this.form.get('name')?.value,
+        this.form.get('symbol')?.value,
+        this.form.get('description')?.value,
+        ipfsImageUri,
+        'nft',
+      );
+      console.log('metadata', metadata);
+
+      // Step 3: Upload off-chain Metadata to IPFS
+      // const ipfsMetadata = await this.ipfsService.addJsonFile(metadata);
+      const ipfsMetadataHash = 'Qmbpao8TjA7DB6QADTKUX5m1N184awWprgaGQA8k2GGxyk'; // ipfsMetadata.path;
+      const ipfsMetadataUri = this.ipfsService.buildFilePath(ipfsMetadataHash);
+      console.log('ipfsMetadataUri', ipfsMetadataUri);
+
+      await this.solanaNftService.mintNftFromCollection(
+        this.collectionMint,
+        {
+          nftName: this.form.get('name')?.value,
+          nftImageUri: ipfsImageUri,
+          nftMetadataUri: ipfsMetadataUri,
+        }
+      ).then(tx => {
+          this.loading = false;
+          this.data.callback(tx);
+          this.closeModal();
+        }).catch(err => {
+          this.loading = false;
+        });
     }
   }
 

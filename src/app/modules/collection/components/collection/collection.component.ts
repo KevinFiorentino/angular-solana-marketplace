@@ -69,6 +69,7 @@ export class CollectionComponent implements OnInit {
         if (collection.length > 0) {
           const owner = (collection[0].account as any).owner as PublicKey;
           this.collectionPDA = this.solanaNftService.getCollectionPDA(owner, this.tokenMint);
+          this.collection = collection[0];
           this.getNftFromCollection();
         }
         this.loading = false;
@@ -90,7 +91,7 @@ export class CollectionComponent implements OnInit {
     this.dialog.open(AddNftToCollectionComponent, {
       data: {
         collectionMint: this.tokenMint,
-        collectionPDA: this.collectionPDA,
+        collectionSymbol: this.collection.account.symbol,
         callback: this.mintFromCollectionCallback.bind(this)
       }
     });
