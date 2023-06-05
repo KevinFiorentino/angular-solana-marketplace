@@ -11,4 +11,15 @@
         width: 70%;
         margin-top: 15px;
     }
+    @media (max-width: 1200px) {
+        .collection-wrapped {
+            grid-template-columns: repeat(2, 1fr);
+            width: 90%;
+        }
+    }
+    @media (max-width: 768px) {
+        .collection-wrapped {
+            grid-template-columns: repeat(1, 1fr);
+        }
+    }
 }

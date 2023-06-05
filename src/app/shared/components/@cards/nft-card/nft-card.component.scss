@@ -1,6 +1,8 @@
 @import "../../../../variables";
 
 ::ng-deep .app-nft-card {
+    box-shadow: 0 3px 6px #00000029 !important;
+
     .card-img {
         padding: 15px 15px 0 15px;
 

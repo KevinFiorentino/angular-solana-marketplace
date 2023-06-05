@@ -3,12 +3,30 @@
 ::ng-deep .app-collection {
     display: flex;
     justify-content: center;
+    flex-direction: column;
 
     .collection-wrapped {
+        width: 70%;
+    }
+    .nfts-wrapped {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
         grid-gap: 10px;
         width: 70%;
         margin-top: 15px;
+    }
+    @media (max-width: 1200px) {
+        .collection-wrapped {
+            width: 90%;
+        }
+        .nfts-wrapped {
+            grid-template-columns: repeat(2, 1fr);
+            width: 90%;
+        }
+    }
+    @media (max-width: 768px) {
+        .nfts-wrapped {
+            grid-template-columns: repeat(1, 1fr);
+        }
     }
 }

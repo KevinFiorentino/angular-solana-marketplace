@@ -1,5 +1,16 @@
 @import "../../../../variables";
 
 ::ng-deep .app-nft {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
 
+    .nft-wrapped {
+        width: 70%;
+    }
+    @media (max-width: 1200px) {
+        .nft-wrapped {
+            width: 90%;
+        }
+    }
 }

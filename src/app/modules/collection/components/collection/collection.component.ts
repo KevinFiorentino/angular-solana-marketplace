@@ -17,6 +17,7 @@ import { Subscription } from 'rxjs';
 export class CollectionComponent implements OnInit {
 
   public loading = true;
+  public loadingNfts = true;
 
   public address!: string | null;
   public tokenMint!: PublicKey;
@@ -71,7 +72,6 @@ export class CollectionComponent implements OnInit {
         if (collection.length > 0) {
           this.collection = collection[0];
           this.collectionPDA = this.solanaNftService.getCollectionPDA(this.tokenMint);
-          console.log('collectionPDA', this.collectionPDA.toString());
           this.getNftFromCollection();
         }
         this.loading = false;
@@ -87,6 +87,11 @@ export class CollectionComponent implements OnInit {
       .then(nfts => {
         console.log('nfts', nfts);
         this.nfts = nfts;
+        this.loadingNfts = false;
+      })
+      .catch(err => {
+        this.loadingNfts = false;
+        console.log('Err', err.message);
       });
   }
 
