@@ -64,8 +64,8 @@ export class AddNftToCollectionComponent implements OnInit {
       console.log('metadata', metadata);
 
       // Step 3: Upload off-chain Metadata to IPFS
-      // const ipfsMetadata = await this.ipfsService.addJsonFile(metadata);
-      const ipfsMetadataHash = 'Qmbpao8TjA7DB6QADTKUX5m1N184awWprgaGQA8k2GGxyk'; // ipfsMetadata.path;
+      const ipfsMetadata = await this.ipfsService.addJsonFile(metadata);
+      const ipfsMetadataHash = ipfsMetadata.path;
       const ipfsMetadataUri = this.ipfsService.buildFilePath(ipfsMetadataHash);
       console.log('ipfsMetadataUri', ipfsMetadataUri);
 

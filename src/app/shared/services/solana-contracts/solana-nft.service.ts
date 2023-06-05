@@ -210,12 +210,12 @@ export class SolanaNftService {
     return this.phantom.signAndSendTransactionWeb(t, nftKP);
   }
 
-  getNftsByCollectionPDA(collectionPDA: PublicKey): Promise<ProgramAccount<IdlTypes<SolanaNft>>[]> {
+  getNftsByCollectionMint(collectionMint: PublicKey): Promise<ProgramAccount<IdlTypes<SolanaNft>>[]> {
     const provider = getProvider();
     const program = new Program(IDL, this.programID, provider);
     return program.account.nftAccount.all([{
       memcmp: {
-        bytes: collectionPDA.toBase58(),
+        bytes: collectionMint.toBase58(),
         offset: 40
       }
     }]);

@@ -54,8 +54,8 @@ export class NewCollectionComponent {
       console.log('metadata', metadata);
 
       // Step 3: Upload off-chain Metadata to IPFS
-      // const ipfsMetadata = await this.ipfsService.addJsonFile(metadata);
-      const ipfsMetadataHash = 'QmQkWBkXqYvTSzHJmhmMD9B43NHBW6ybbKc1h2fbxr9LiE'; // ipfsMetadata.path;
+      const ipfsMetadata = await this.ipfsService.addJsonFile(metadata);
+      const ipfsMetadataHash = ipfsMetadata.path;
       const ipfsMetadataUri = this.ipfsService.buildFilePath(ipfsMetadataHash);
       console.log('ipfsMetadataUri', ipfsMetadataUri);
 

@@ -1,14 +1,15 @@
 <mat-card class="app-nft-card">
     <div class="card-img">
-        <img src="{{ nft.account.imageUri }}" alt="{{ nft.account.name }}" mat-card-image>
+        <img src="{{ ipfs.buildFilePath(nft.account.ipfsImageHash) }}" alt="{{ nft.account.name }}" mat-card-image>
     </div>
     <mat-card-content>
         <div>
             <h3>{{ nft.account.name }}</h3>
+            <small>{{ nft.account.tokenMint.toString() }}</small>
         </div>
     </mat-card-content>
     <mat-card-actions>
-        <a class="btn-action" mat-button>
+        <a [routerLink]="['/nft', this.tokenMint]" class="btn-action" mat-button>
             See NFT
         </a>
     </mat-card-actions>

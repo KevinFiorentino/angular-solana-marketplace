@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { IpfsService } from '@shared/services/ipfs.service';
 
 @Component({
   selector: 'app-collection-card',
@@ -11,7 +12,9 @@ export class CollectionCardComponent implements OnInit {
 
   public tokenMint!: string;
 
-  constructor() { }
+  constructor(
+    public ipfs: IpfsService
+  ) { }
 
   ngOnInit(): void {
     console.log('collection', this.collection);

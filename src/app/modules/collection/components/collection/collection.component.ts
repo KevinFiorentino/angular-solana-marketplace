@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PublicKey } from '@solana/web3.js';
+import { IpfsService } from '@shared/services/ipfs.service';
 import { PhantomConnectService } from '@shared/services/phantom/phantom-connect.service';
 import { SolanaNftService } from '@shared/services/solana-contracts/solana-nft.service';
 import { AddNftToCollectionComponent } from '@shared/components/@modals/add-nft-to-collection/add-nft-to-collection.component';
@@ -30,6 +31,7 @@ export class CollectionComponent implements OnInit {
   public walletSub!: Subscription;
 
   constructor(
+    public ipfs: IpfsService,
     private router: Router,
     private route: ActivatedRoute,
     private dialog: MatDialog,
@@ -69,6 +71,7 @@ export class CollectionComponent implements OnInit {
         if (collection.length > 0) {
           this.collection = collection[0];
           this.collectionPDA = this.solanaNftService.getCollectionPDA(this.tokenMint);
+          console.log('collectionPDA', this.collectionPDA.toString());
           this.getNftFromCollection();
         }
         this.loading = false;
@@ -80,7 +83,7 @@ export class CollectionComponent implements OnInit {
   }
 
   getNftFromCollection(): void {
-    this.solanaNftService.getNftsByCollectionPDA(this.collectionPDA)
+    this.solanaNftService.getNftsByCollectionMint(this.tokenMint)
       .then(nfts => {
         console.log('nfts', nfts);
         this.nfts = nfts;

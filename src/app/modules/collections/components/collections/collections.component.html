@@ -6,12 +6,20 @@
 <div class="app-collections">
 
     <div *ngIf="!loading; else appLoading" class="center-layout">
-        <div class="collection-wrapped">
+
+        <div *ngIf="collections && collections.length > 0; else withoutCollections" class="collection-wrapped">
             <app-collection-card
                 *ngFor="let c of collections"
                 [collection]="c"
             ></app-collection-card>
         </div>
+
+        <ng-template #withoutCollections>
+            <div class="without-collections">
+                <p>No collections have been created yet.</p>
+            </div>
+        </ng-template>
+
     </div>
 
     <ng-template #appLoading>
