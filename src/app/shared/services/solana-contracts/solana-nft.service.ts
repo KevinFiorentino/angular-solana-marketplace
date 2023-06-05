@@ -67,16 +67,10 @@ export class SolanaNftService {
       collectionTokenMint,
       provider.publicKey,
     );
-    const collectionPDA = this.getCollectionPDA(provider.publicKey, collectionTokenMint);
+    const collectionPDA = this.getCollectionPDA(collectionTokenMint);
     const collectionMetadataPDA = this.getMetadataPDA(collectionTokenMint);
     const collectionMasterEditionPDA = this.getMasterEditionPDA(collectionTokenMint);
     const collectionAuthorityRecordPDA = this.getCollectionAuthorityRecordPDA(collectionTokenMint, collectionPDA);
-
-    console.log('collectionATA', collectionATA.toString());
-    console.log('collectionPDA', collectionPDA.toString());
-    console.log('collectionMetadataPDA', collectionMetadataPDA.toString());
-    console.log('collectionMasterEditionPDA', collectionMasterEditionPDA.toString());
-    console.log('collectionAuthorityRecordPDA', collectionAuthorityRecordPDA.toString());
 
     // Create and sign transaction
     const t = new Transaction();
@@ -90,7 +84,7 @@ export class SolanaNftService {
       .mintCollection(
         collectionData.collectionName,
         collectionData.collectionSymbol,
-        collectionData.imageUri,
+        collectionData.ipfsImageHash,
         collectionData.metadataUri,
       )
       .accounts({
@@ -160,7 +154,7 @@ export class SolanaNftService {
       throw new Error('User\'s wallet not connected.');
 
     // Prepare Collection PDAs
-    const collectionPDA = this.getCollectionPDA(provider.publicKey, collectionTokenMint);
+    const collectionPDA = this.getCollectionPDA(collectionTokenMint);
     const collectionMetadataPDA = this.getMetadataPDA(collectionTokenMint);
     const collectionMasterEditionPDA = this.getMasterEditionPDA(collectionTokenMint);
     const collectionAuthorityRecordPDA = this.getCollectionAuthorityRecordPDA(collectionTokenMint, collectionPDA);
@@ -187,8 +181,8 @@ export class SolanaNftService {
     const i = await program.methods
       .mintNftFromCollection(
         nftData.nftName,
-        nftData.nftImageUri,
-        nftData.nftMetadataUri,
+        nftData.ipfsImageHash,
+        nftData.metadataUri,
       )
       .accounts({
         mint: nftTokenMint,
@@ -305,12 +299,11 @@ export class SolanaNftService {
           BUILD CUSTOM PDAs
   ****************************** */
 
-  getCollectionPDA(walletAddress: PublicKey, collectionTokenMint: PublicKey): PublicKey {
+  getCollectionPDA(collectionTokenMint: PublicKey): PublicKey {
     const [collectionPDA] = web3.PublicKey
       .findProgramAddressSync(
         [
           Buffer.from('collection'),
-          walletAddress.toBuffer(),
           collectionTokenMint.toBuffer(),
         ],
         this.programID

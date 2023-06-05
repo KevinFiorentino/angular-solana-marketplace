@@ -1,5 +1,5 @@
 export interface MintNFT {
   nftName: string;
-  nftImageUri: string;
-  nftMetadataUri: string;
+  ipfsImageHash: string;
+  metadataUri: string;
 }

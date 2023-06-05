@@ -25,7 +25,7 @@ export class AddNftToCollectionComponent implements OnInit {
 
   private collectionMint!: PublicKey;
 
-  public symbol!: string;
+  public collectionSymbol!: string;
 
   constructor(
     private formBuilder: UntypedFormBuilder,
@@ -38,7 +38,7 @@ export class AddNftToCollectionComponent implements OnInit {
   ngOnInit(): void {
     console.log('this.data', this.data);
     this.collectionMint = this.data.collectionMint;
-    this.symbol = this.data.collectionSymbol
+    this.collectionSymbol = this.data.collectionSymbol
   }
 
   async addNFT() {
@@ -56,7 +56,7 @@ export class AddNftToCollectionComponent implements OnInit {
       // Step 2: Create off-chain Metadata
       const metadata = this.solanaNftService.buildMetadataJSON(
         this.form.get('name')?.value,
-        this.form.get('symbol')?.value,
+        this.collectionSymbol,                                    // Each NFT will have the same symbol as the collection
         this.form.get('description')?.value,
         ipfsImageUri,
         'nft',
@@ -73,8 +73,8 @@ export class AddNftToCollectionComponent implements OnInit {
         this.collectionMint,
         {
           nftName: this.form.get('name')?.value,
-          nftImageUri: ipfsImageUri,
-          nftMetadataUri: ipfsMetadataUri,
+          ipfsImageHash: ipfsImageHash,
+          metadataUri: ipfsMetadataUri,
         }
       ).then(tx => {
           this.loading = false;

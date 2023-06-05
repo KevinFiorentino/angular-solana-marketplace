@@ -1,6 +1,6 @@
 export interface MintCollection {
   collectionName: string;
   collectionSymbol: string;
-  imageUri: string;
+  ipfsImageHash: string;
   metadataUri: string;
 }

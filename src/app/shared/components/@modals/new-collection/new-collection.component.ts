@@ -63,7 +63,7 @@ export class NewCollectionComponent {
       await this.solanaNftService.mintCollection({
         collectionName: this.form.get('name')?.value,
         collectionSymbol: this.form.get('symbol')?.value,
-        imageUri: ipfsImageUri,
+        ipfsImageHash: ipfsImageHash,
         metadataUri: ipfsMetadataUri,
       }).then(tx => {
         this.loading = false;

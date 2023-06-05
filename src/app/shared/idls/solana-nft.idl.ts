@@ -81,7 +81,7 @@ export type SolanaNft = {
           'type': 'string'
         },
         {
-          'name': 'imageUri',
+          'name': 'ipfsImageHash',
           'type': 'string'
         },
         {
@@ -185,11 +185,11 @@ export type SolanaNft = {
           'type': 'string'
         },
         {
-          'name': 'nftImageUri',
+          'name': 'ipfsImageHash',
           'type': 'string'
         },
         {
-          'name': 'nftMetadataUri',
+          'name': 'metadataUri',
           'type': 'string'
         }
       ]
@@ -218,12 +218,8 @@ export type SolanaNft = {
             'type': 'string'
           },
           {
-            'name': 'imageUri',
+            'name': 'ipfsImageHash',
             'type': 'string'
-          },
-          {
-            'name': 'countNfts',
-            'type': 'u16'
           },
           {
             'name': 'bump',
@@ -246,7 +242,7 @@ export type SolanaNft = {
             'type': 'publicKey'
           },
           {
-            'name': 'collectionPda',
+            'name': 'collectionMint',
             'type': 'publicKey'
           },
           {
@@ -254,7 +250,7 @@ export type SolanaNft = {
             'type': 'string'
           },
           {
-            'name': 'imageUri',
+            'name': 'ipfsImageHash',
             'type': 'string'
           },
           {
@@ -266,7 +262,7 @@ export type SolanaNft = {
     }
   ],
   'metadata': {
-    'address': 'CsvQG7uR6AzA53YiHwkyfGSvpd54JdjdFgEDvU5WSXBb'
+    'address': 'Byxv35jh68V6HKwxrE5cDidP3658WJ7YyAasRpXH1sWv'
   }
 };
 
@@ -353,7 +349,7 @@ export const IDL: SolanaNft = {
           'type': 'string'
         },
         {
-          'name': 'imageUri',
+          'name': 'ipfsImageHash',
           'type': 'string'
         },
         {
@@ -457,11 +453,11 @@ export const IDL: SolanaNft = {
           'type': 'string'
         },
         {
-          'name': 'nftImageUri',
+          'name': 'ipfsImageHash',
           'type': 'string'
         },
         {
-          'name': 'nftMetadataUri',
+          'name': 'metadataUri',
           'type': 'string'
         }
       ]
@@ -490,12 +486,8 @@ export const IDL: SolanaNft = {
             'type': 'string'
           },
           {
-            'name': 'imageUri',
+            'name': 'ipfsImageHash',
             'type': 'string'
-          },
-          {
-            'name': 'countNfts',
-            'type': 'u16'
           },
           {
             'name': 'bump',
@@ -518,7 +510,7 @@ export const IDL: SolanaNft = {
             'type': 'publicKey'
           },
           {
-            'name': 'collectionPda',
+            'name': 'collectionMint',
             'type': 'publicKey'
           },
           {
@@ -526,7 +518,7 @@ export const IDL: SolanaNft = {
             'type': 'string'
           },
           {
-            'name': 'imageUri',
+            'name': 'ipfsImageHash',
             'type': 'string'
           },
           {
@@ -538,6 +530,6 @@ export const IDL: SolanaNft = {
     }
   ],
   'metadata': {
-    'address': 'CsvQG7uR6AzA53YiHwkyfGSvpd54JdjdFgEDvU5WSXBb'
+    'address': 'Byxv35jh68V6HKwxrE5cDidP3658WJ7YyAasRpXH1sWv'
   }
 };

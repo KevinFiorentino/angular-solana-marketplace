@@ -67,9 +67,8 @@ export class CollectionComponent implements OnInit {
       .then(collection => {
         console.log('collection', collection);
         if (collection.length > 0) {
-          const owner = (collection[0].account as any).owner as PublicKey;
-          this.collectionPDA = this.solanaNftService.getCollectionPDA(owner, this.tokenMint);
           this.collection = collection[0];
+          this.collectionPDA = this.solanaNftService.getCollectionPDA(this.tokenMint);
           this.getNftFromCollection();
         }
         this.loading = false;
