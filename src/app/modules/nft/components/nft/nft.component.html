@@ -9,12 +9,37 @@
     </div>
 
     <div *ngIf="!loading; else appLoading" class="center-layout">
-        <div *ngIf="nft">
-            <div>
-                <h1>NFT: </h1>
+        <div class="main-nfts-wrapped">
+            <div *ngIf="nft" class="nft-wrapped">
+                <div>
+                    <img src="{{ nft.json.image }}" alt="{{ nft.name }}">
+                </div>
+                <div class="nft-info">
+                    <p><strong>Name: </strong>{{ nft.name }}</p>
+                    <p><strong>Symbol: </strong>{{ nft.symbol }}</p>
+                    <p><strong>Description: </strong>{{ nft.json.description }}</p>
+                    <div class="btn-explorer">
+                        <a href="https://explorer.solana.com/address/{{ tokenMint.toString() }}?cluster=devnet" target="_blank" title="Explorer 1">
+                            See on explorer 1
+                        </a>
+                    </div>
+                    <div class="btn-explorer">
+                        <a href="https://solscan.io/token/{{ tokenMint.toString() }}?cluster=devnet" target="_blank" title="Explorer 2">
+                            See on explorer 2
+                        </a>
+                    </div>
+                </div>
             </div>
-            <div>
 
+            <br>
+
+            <div>
+                <h2>Metadata</h2>
+                <pre>
+                    <code>
+                        {{ metadataRaw }}
+                    </code>
+                </pre>
             </div>
         </div>
     </div>

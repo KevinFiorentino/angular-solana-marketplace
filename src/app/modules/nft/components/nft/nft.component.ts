@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { UtilsService } from '@shared/services/utils.service';
 import { SolanaNftService } from '@shared/services/solana-contracts/solana-nft.service';
 import { PublicKey } from '@solana/web3.js';
 
@@ -14,11 +15,14 @@ export class NftComponent implements OnInit {
 
   public address!: string | null;
   public tokenMint!: PublicKey;
+
   public nft!: any;
+  public metadataRaw!: string;
 
   public invalidAddress = false;
 
   constructor(
+    public utils: UtilsService,
     private router: Router,
     private route: ActivatedRoute,
     private solanaNftService: SolanaNftService,
@@ -44,6 +48,7 @@ export class NftComponent implements OnInit {
     this.solanaNftService.getTokenFromSolana(this.tokenMint)
       .then(nft => {
         this.nft = nft;
+        this.metadataRaw = JSON.stringify(nft.json, null, 4)
         this.loading = false;
         console.log('nft', nft);
       })
