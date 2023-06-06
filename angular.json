@@ -28,6 +28,7 @@
             "inlineStyleLanguage": "scss",
             "allowedCommonJsDependencies": [
               "@bundlr-network/client",
+              "@coral-xyz/borsh",
               "@metaplex-foundation/beet",
               "@metaplex-foundation/mpl-auction-house",
               "@metaplex-foundation/mpl-candy-guard",
@@ -85,8 +86,8 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "5kb",
+                  "maximumError": "10kb"
                 }
               ],
               "fileReplacements": [

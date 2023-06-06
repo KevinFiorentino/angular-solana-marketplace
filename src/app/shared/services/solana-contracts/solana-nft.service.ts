@@ -3,7 +3,6 @@ import { Connection, PublicKey, Keypair, SystemProgram, SYSVAR_RENT_PUBKEY, Tran
 import { web3, Program, ProgramAccount, getProvider, IdlTypes } from '@project-serum/anchor';
 import { getAssociatedTokenAddressSync, TOKEN_PROGRAM_ID } from '@solana/spl-token';
 import { Metaplex } from '@metaplex-foundation/js';
-import { Metadata } from "@metaplex-foundation/mpl-token-metadata";
 import { PhantomConnectService } from '@shared/services/phantom/phantom-connect.service';
 import { IDL, SolanaNft } from '@shared/idls/solana-nft.idl';
 import { MintCollection } from '@shared/models/collection.interface';
