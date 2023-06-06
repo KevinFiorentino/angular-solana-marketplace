@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PublicKey } from '@solana/web3.js';
 import { IpfsService } from '@shared/services/ipfs.service';
+import { UtilsService } from '@shared/services/utils.service';
 import { PhantomConnectService } from '@shared/services/phantom/phantom-connect.service';
 import { SolanaNftService } from '@shared/services/solana-contracts/solana-nft.service';
 import { AddNftToCollectionComponent } from '@shared/components/@modals/add-nft-to-collection/add-nft-to-collection.component';
@@ -33,6 +34,7 @@ export class CollectionComponent implements OnInit {
 
   constructor(
     public ipfs: IpfsService,
+    public utils: UtilsService,
     private router: Router,
     private route: ActivatedRoute,
     private dialog: MatDialog,

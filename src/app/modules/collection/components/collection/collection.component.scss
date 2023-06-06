@@ -6,27 +6,50 @@
     flex-direction: column;
 
     .collection-wrapped {
+        display: flex;
+        flex-direction: row;
         width: 70%;
+
+        img {
+            width: 200px;
+            border: 1px solid #3f51b5;
+            border-radius: 10px;
+        }
+        .collection-info {
+            margin: 15px;
+        }
     }
-    .nfts-wrapped {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        grid-gap: 10px;
+    .main-nfts-wrapped {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
         width: 70%;
         margin-top: 15px;
+
+        .nfts-wrapped {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-gap: 10px;
+        }
     }
+
     @media (max-width: 1200px) {
         .collection-wrapped {
             width: 90%;
         }
-        .nfts-wrapped {
-            grid-template-columns: repeat(2, 1fr);
+        .main-nfts-wrapped {
             width: 90%;
+
+            .nfts-wrapped {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
     }
     @media (max-width: 768px) {
-        .nfts-wrapped {
-            grid-template-columns: repeat(1, 1fr);
+        .main-nfts-wrapped {
+            .nfts-wrapped {
+                grid-template-columns: repeat(1, 1fr);
+            }
         }
     }
 }

@@ -49,8 +49,8 @@ export class AddNftToCollectionComponent implements OnInit {
     }
     if (this.form.valid) {
       // Step 1: Upload image to IPFS
-      // const ipfsImage = await this.ipfsService.addBufferFile(this.fileBuffer);
-      const ipfsImageHash = 'QmTsRxRpmWgc5rtaRkE77MYbp3qS3Qsjb7CiYmSSVmhF4V' // ipfsImage.path;
+      const ipfsImage = await this.ipfsService.addBufferFile(this.fileBuffer);
+      const ipfsImageHash = ipfsImage.path;
       const ipfsImageUri = this.ipfsService.buildFilePath(ipfsImageHash);
 
       // Step 2: Create off-chain Metadata

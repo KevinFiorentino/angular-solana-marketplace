@@ -12,14 +12,21 @@
     <div *ngIf="!loading; else appLoading" class="center-layout">
         <div *ngIf="collection" class="collection-wrapped">
             <div>
-                <img src="{{ ipfs.buildFilePath(collection.account.ipfsImageHash) }}" alt="{{ collection.account.name }}" mat-card-image>
-                <h1>NFT: {{ collection.account.name }}</h1>
+                <img src="{{ ipfs.buildFilePath(collection.account.ipfsImageHash) }}" alt="{{ collection.account.name }}">
+            </div>
+            <div class="collection-info">
+                <p><strong>Collection name: </strong>{{ collection.account.name }}</p>
+                <p><strong>Collection symbol: </strong>{{ collection.account.symbol }}</p>
+                <p><strong>Collection owner: </strong>{{ collection.account.owner.toString() }}</p>
             </div>
         </div>
     </div>
 
+    <br>
+
     <div *ngIf="!loadingNfts; else appLoading" class="center-layout">
-        <div *ngIf="nfts && nfts.length > 0; else withoutNfts" class="center-layout">
+        <div *ngIf="nfts && nfts.length > 0; else withoutNfts" class="main-nfts-wrapped">
+            <h2>NFTs on collection</h2>
             <div class="nfts-wrapped">
                 <app-nft-card
                     *ngFor="let n of nfts"

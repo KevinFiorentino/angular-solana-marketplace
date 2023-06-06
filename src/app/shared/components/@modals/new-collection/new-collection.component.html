@@ -25,7 +25,8 @@
 
         <div>
             <div (click)="fileInput.click()" class="file-box">
-                Collection cover image <small *ngIf="originalName">{{ ': ' + originalName }}</small>
+                <p>Collection cover image <small *ngIf="originalName">{{ ': ' + originalName }}</small></p>
+                <small>Size recommended: 500x500</small>
             </div>
             <input id="file" hidden #fileInput (change)="onFileSelected()" type="file">
             <small *ngIf="errorImage">
