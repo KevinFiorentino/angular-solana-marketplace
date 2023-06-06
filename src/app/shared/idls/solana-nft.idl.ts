@@ -262,7 +262,7 @@ export type SolanaNft = {
     }
   ],
   'metadata': {
-    'address': 'Byxv35jh68V6HKwxrE5cDidP3658WJ7YyAasRpXH1sWv'
+    'address': '756vNUvmmyKCimqoQGtHAMexYsadsDsPG5ieL2KXfbfp'
   }
 };
 
@@ -530,6 +530,6 @@ export const IDL: SolanaNft = {
     }
   ],
   'metadata': {
-    'address': 'Byxv35jh68V6HKwxrE5cDidP3658WJ7YyAasRpXH1sWv'
+    'address': '756vNUvmmyKCimqoQGtHAMexYsadsDsPG5ieL2KXfbfp'
   }
 };
